@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — Section 8 of the FFA build spec (decided) */
+  --color-purple-top: #2d0855;
+  --color-purple-bottom: #120532;
+  --color-lilac: #f0ebfc;
+  --color-gold: #c59b4e;
+
+  /* Typeface: all-sans scale — Google Sans (Section 8, resolved in-session) */
+  --font-sans: "Google Sans", system-ui, sans-serif;
+  --font-display: "Google Sans", system-ui, sans-serif;
+}
+
+body {
+  @apply bg-lilac text-purple-top font-sans antialiased;
+}
