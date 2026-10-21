@@ -1,7 +1,7 @@
 export default function WhoWeAre() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-20">
-      <p className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+      <p className="eyebrow text-gold-ink">
         Section 5.2 — Who We Are
       </p>
       <h1 className="mt-2 font-display text-4xl font-bold">

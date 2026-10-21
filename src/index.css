@@ -1,17 +1,178 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette — Section 8 of the FFA build spec (decided) */
+  /* Brand palette — Section 8 of the FFA build spec, extended for the redesign */
   --color-purple-top: #2d0855;
   --color-purple-bottom: #120532;
+  --color-purple-mid: #4a1d86; /* hover / pressed state of purple surfaces */
   --color-lilac: #f0ebfc;
-  --color-gold: #c59b4e;
+  --color-lilac-deep: #e2d8f8; /* tinted bands, dividers */
+  --color-lilac-line: #c9b8ef; /* rules and borders on lilac */
+  --color-gold: #c59b4e; /* accents on purple; too light for text on lilac */
+  --color-gold-ink: #7a5c22; /* gold for text on light backgrounds (AA contrast) */
 
-  /* Typeface: all-sans scale — Google Sans (Section 8, resolved in-session) */
-  --font-sans: "Google Sans", system-ui, sans-serif;
-  --font-display: "Google Sans", system-ui, sans-serif;
+  /* Typefaces: Fraunces for headlines, Google Sans for everything else */
+  --font-sans: "Google Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+
+  /* Fluid type scale — sized for phones first, growing with the screen */
+  --text-display: clamp(2.75rem, 1.9rem + 4.4vw, 5.75rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.025em;
+  --text-headline: clamp(2rem, 1.55rem + 2.3vw, 3.5rem);
+  --text-headline--line-height: 1.08;
+  --text-headline--letter-spacing: -0.02em;
+  --text-title: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
+  --text-title--line-height: 1.2;
+  --text-lede: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  --text-lede--line-height: 1.55;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Mobile menu: panel fades down, links follow in a short stagger */
+  --animate-menu-in: menu-in 0.28s var(--ease-out-soft) both;
+  --animate-item-in: item-in 0.4s var(--ease-out-soft) both;
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+  }
+
+  @keyframes item-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+  }
 }
 
-body {
-  @apply bg-lilac text-purple-top font-sans antialiased;
+/* Page-width wrapper: the one set of side margins every section shares */
+@utility shell {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 64rem) {
+    padding-inline: 3rem;
+  }
+}
+
+/* Small uppercase label above headings */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Dark sections switch the keyboard focus ring to gold so it stays visible */
+@utility surface-dark {
+  --focus-ring: var(--color-gold);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem; /* keep anchored headings clear of the sticky header */
+  }
+
+  body {
+    @apply bg-lilac font-sans text-purple-top antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus-ring, var(--color-purple-top));
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-purple-bottom);
+  }
+
+  /* Arc paths use pathLength="1"; a single full-length dash lets them "draw". */
+  [data-arc-draw] {
+    stroke-dasharray: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Gentle reveal on scroll. Content is only hidden once RevealOnScroll has
+     run (it sets data-reveal-ready), so without JavaScript nothing is hidden. */
+  html[data-reveal-ready] [data-reveal] {
+    transition:
+      opacity 0.7s var(--ease-out-soft),
+      transform 0.7s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  html[data-reveal-ready] [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+
+  /* The rising-arc motif draws itself in once revealed… */
+  html[data-reveal-ready] [data-arc-draw] {
+    transition: stroke-dashoffset 1.4s var(--ease-out-soft);
+  }
+
+  html[data-reveal-ready] [data-reveal]:not([data-revealed]) [data-arc-draw] {
+    stroke-dashoffset: 1;
+  }
+
+  /* …or, at the top of the page, as soon as it loads (pure CSS, decorative only) */
+  [data-arc-intro] [data-arc-draw] {
+    animation: arc-draw 1.6s var(--ease-out-soft) both;
+  }
+
+  /* The hero's gold underline sweeps in from the left on load */
+  [data-underline-intro] {
+    transform-origin: left;
+    animation: grow-x 0.9s var(--ease-out-soft) 0.45s both;
+  }
+
+  /* Impact bars grow from the left when their section scrolls into view */
+  html[data-reveal-ready] [data-grow] {
+    transform-origin: left;
+    transition: transform 1.1s var(--ease-out-soft) 0.25s;
+  }
+
+  html[data-reveal-ready] [data-reveal]:not([data-revealed]) [data-grow] {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes arc-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
 }

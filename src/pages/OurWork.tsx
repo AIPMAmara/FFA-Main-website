@@ -1,7 +1,7 @@
 export default function OurWork() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-20">
-      <p className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+      <p className="eyebrow text-gold-ink">
         Section 5.3 — Our Work
       </p>
       <h1 className="mt-2 font-display text-4xl font-bold">
@@ -31,7 +31,7 @@ export default function OurWork() {
       </p>
 
       <div id="amazon-conference" className="mt-16 rounded-2xl bg-purple-top p-8 text-lilac">
-        <p className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+        <p className="eyebrow text-gold">
           Flagship Initiative
         </p>
         <h2 className="mt-2 font-display text-2xl font-bold">The Amazon Conference</h2>

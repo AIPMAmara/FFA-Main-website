@@ -7,7 +7,7 @@ type PageStubProps = {
 export default function PageStub({ title, specSection, pending }: PageStubProps) {
   return (
     <div className="mx-auto max-w-3xl px-6 py-20">
-      <p className="font-display text-xs font-bold uppercase tracking-widest text-gold">
+      <p className="eyebrow text-gold-ink">
         {specSection}
       </p>
       <h1 className="mt-2 font-display text-4xl font-bold">{title}</h1>
