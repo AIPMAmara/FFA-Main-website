@@ -1,7 +1,7 @@
 import Picture from '../../components/Picture'
 import RisingArc from '../../components/RisingArc'
 import { photos } from '../../photos'
-import { revealDelay } from './reveal'
+import { revealDelay } from '../../lib/reveal'
 
 const dimensions = [
   { name: 'Identity', text: 'Know who you are, what you value and what you stand for.' },

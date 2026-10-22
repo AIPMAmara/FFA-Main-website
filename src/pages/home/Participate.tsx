@@ -1,9 +1,8 @@
-import type { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
 import Picture from '../../components/Picture'
+import SmartLink from '../../components/SmartLink'
 import { JOIN_URL } from '../../links'
 import { photos } from '../../photos'
-import { revealDelay } from './reveal'
+import { revealDelay } from '../../lib/reveal'
 
 const ways = [
   {
@@ -33,22 +32,6 @@ const ways = [
   },
 ]
 
-// Whole row is the link: external URL, in-page #anchor, or site route.
-function RowLink({ to, className, children }: { to: string; className: string; children: ReactNode }) {
-  if (to.startsWith('http') || to.startsWith('#')) {
-    return (
-      <a href={to} className={className}>
-        {children}
-      </a>
-    )
-  }
-  return (
-    <Link to={to} className={className}>
-      {children}
-    </Link>
-  )
-}
-
 export default function Participate() {
   return (
     <section aria-labelledby="participate-heading" className="py-20 sm:py-28 lg:py-32">
@@ -72,11 +55,11 @@ export default function Participate() {
         <ul className="border-t border-lilac-line lg:col-span-7">
           {ways.map((way, index) => (
             <li key={way.title} className="border-b border-lilac-line" data-reveal="" style={revealDelay(index, 70)}>
-              <RowLink
+              <SmartLink
                 to={way.to}
                 className="group flex items-start gap-4 py-7 transition-colors sm:gap-6 sm:py-8"
               >
-                <span className="pt-1.5 font-display text-sm font-semibold text-gold-ink tabular-nums">
+                <span className="w-6 shrink-0 pt-1.5 font-display text-sm font-semibold text-gold-ink tabular-nums">
                   0{index + 1}
                 </span>
                 <span className="min-w-0 flex-1">
@@ -93,7 +76,7 @@ export default function Participate() {
                     <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.75" />
                   </svg>
                 </span>
-              </RowLink>
+              </SmartLink>
             </li>
           ))}
         </ul>

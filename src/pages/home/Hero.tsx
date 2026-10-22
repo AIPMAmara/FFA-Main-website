@@ -13,8 +13,15 @@ export default function Hero() {
           <p className="mt-6 max-w-xl font-display text-xl text-purple-top/75 sm:text-2xl">
             Africa doesn&rsquo;t need women who are merely ready.
           </p>
+          {/* Fixed line breaks per screen size so the headline wraps identically in the
+              fallback font and in Fraunces — no jump when the font loads.
+              Phones: It needs / women who / are becoming.  Tablets & large screens:
+              It needs women / who are becoming.  Small laptops: … / who are / becoming. */}
           <h1 id="hero-heading" className="mt-2 font-display text-display font-semibold">
-            It needs women who are{' '}
+            It needs <br className="md:hidden" />
+            women <br className="hidden md:inline" />
+            who <br className="md:hidden" />
+            are <br className="hidden lg:inline xl:hidden" />
             <span className="relative inline-block text-purple-mid italic">
               becoming.
               {/* Gold underline in the rising-arc motif */}
@@ -71,7 +78,7 @@ export default function Hero() {
               className="aspect-[4/5] w-full object-cover"
             />
           </div>
-          <figcaption className="mt-3 text-xs text-purple-top/60">
+          <figcaption className="mt-3 text-xs text-purple-top/70">
             At The Amazon Conference, Calabar
           </figcaption>
         </figure>

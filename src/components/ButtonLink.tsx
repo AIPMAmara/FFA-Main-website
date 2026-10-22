@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import SmartLink from './SmartLink'
 
 const base =
   'group inline-flex items-center justify-center gap-2 rounded-full font-bold transition duration-200 ease-out active:translate-y-px active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:transform-none'
@@ -17,7 +17,7 @@ const variants = {
 } as const
 
 type ButtonLinkProps = {
-  /** Internal route ("/contact") or full URL ("https://…"). */
+  /** Site route ("/contact"), full URL ("https://…") or same-page anchor ("#story"). */
   to: string
   variant?: keyof typeof variants
   size?: keyof typeof sizes
@@ -46,21 +46,10 @@ export default function ButtonLink({
   className = '',
   children,
 }: ButtonLinkProps) {
-  const classes = `${base} ${sizes[size]} ${variants[variant]} ${className}`
-  const content = (
-    <>
+  return (
+    <SmartLink to={to} className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}>
       {children}
       {arrow && <Arrow />}
-    </>
-  )
-
-  return to.startsWith('http') ? (
-    <a href={to} className={classes}>
-      {content}
-    </a>
-  ) : (
-    <Link to={to} className={classes}>
-      {content}
-    </Link>
+    </SmartLink>
   )
 }

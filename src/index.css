@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* While Fraunces downloads, headlines show in Times New Roman scaled to Fraunces'
+   width (measured at ~93%), so lines wrap the same way and nothing jumps when the
+   real font arrives. Georgia is a poor stand-in: it has no 600 weight, and the
+   faked bold is far wider. */
+@font-face {
+  font-family: "Fraunces Fallback";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT");
+  size-adjust: 93%;
+}
+
 @theme {
   /* Brand palette — Section 8 of the FFA build spec, extended for the redesign */
   --color-purple-top: #2d0855;
@@ -13,7 +23,7 @@
 
   /* Typefaces: Fraunces for headlines, Google Sans for everything else */
   --font-sans: "Google Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-display: "Fraunces", "Fraunces Fallback", Georgia, serif;
 
   /* Fluid type scale — sized for phones first, growing with the screen */
   --text-display: clamp(2.75rem, 1.9rem + 4.4vw, 5.75rem);
@@ -72,6 +82,26 @@
   letter-spacing: 0.18em;
   line-height: 1.4;
   text-transform: uppercase;
+}
+
+/* Text link whose gold underline draws in from the left on hover / focus */
+@utility link-underline {
+  background-image: linear-gradient(var(--color-gold), var(--color-gold));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  padding-bottom: 2px;
+  transition: background-size 0.35s var(--ease-out-soft);
+
+  &:hover,
+  &:focus-visible,
+  .group:hover & {
+    background-size: 100% 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 /* Dark sections switch the keyboard focus ring to gold so it stays visible */

@@ -1,7 +1,7 @@
 import ButtonLink from '../../components/ButtonLink'
 import Picture from '../../components/Picture'
 import { photos } from '../../photos'
-import { revealDelay } from './reveal'
+import { revealDelay } from '../../lib/reveal'
 
 // Programme highlights. Community stories (testimonials) will be added to this
 // section once supplied — never placeholder or invented quotes.

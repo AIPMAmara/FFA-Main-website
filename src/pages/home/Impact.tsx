@@ -1,6 +1,6 @@
 import Picture from '../../components/Picture'
 import { photos } from '../../photos'
-import { revealDelay } from './reveal'
+import { revealDelay } from '../../lib/reveal'
 
 // Figures from the September 2026 Impact Snapshot (owner-verified).
 // Bar widths are proportional to the numbers (3,000 = 100%).

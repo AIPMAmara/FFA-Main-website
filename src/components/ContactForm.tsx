@@ -30,7 +30,7 @@ function Label({ htmlFor, children, optional }: { htmlFor: string; children: str
     <label htmlFor={htmlFor} className="block text-sm font-bold">
       {children}
       {optional ? (
-        <span className="ml-1 font-normal text-purple-top/60">(optional)</span>
+        <span className="ml-1 font-normal text-purple-top/70">(optional)</span>
       ) : (
         <span className="ml-1 text-red-700" aria-hidden="true">
           *
@@ -251,7 +251,7 @@ export default function ContactForm() {
           aria-describedby={describedBy('message', 'contact-message-count')}
           className={inputClass(Boolean(errors.message))}
         />
-        <p id="contact-message-count" className="mt-2 text-right text-xs text-purple-top/60">
+        <p id="contact-message-count" className="mt-2 text-right text-xs text-purple-top/70">
           {fields.message.length} / {LIMITS.message} characters
         </p>
         <FieldError id="contact-message-error" message={errors.message} />

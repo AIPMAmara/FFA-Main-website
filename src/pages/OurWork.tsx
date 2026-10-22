@@ -26,7 +26,7 @@ export default function OurWork() {
           </div>
         ))}
       </dl>
-      <p className="mt-2 text-xs italic text-purple-top/50">
+      <p className="mt-2 text-xs italic text-purple-top/70">
         Figures need verification before publication (Section 5.3).
       </p>
 
@@ -47,7 +47,7 @@ export default function OurWork() {
         </a>
       </div>
 
-      <p className="mt-12 text-sm italic text-purple-top/50">
+      <p className="mt-12 text-sm italic text-purple-top/70">
         Community Initiatives, Partnerships &amp; Collaborations, Impact Stories, and
         Reports/Resources copy still pending (Section 5.3).
       </p>
